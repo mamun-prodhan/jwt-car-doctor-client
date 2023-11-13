@@ -5,7 +5,8 @@ import { useState } from "react";
 
 const Services = () => {
   const [asc, setAsc] = useState(true);
-  const services = useServices(asc);
+  const [search, setSearch] = useState("");
+  const services = useServices(asc, search);
   // const [services, setServices] = useState([]);
 
   // useEffect(() => {
@@ -13,6 +14,13 @@ const Services = () => {
   //         .then(res => res.json())
   //         .then(data => setServices(data));
   // }, [])
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchText = e.target.search.value;
+    console.log(searchText);
+    setSearch(searchText);
+    e.target.reset();
+  };
 
   return (
     <div className="mt-4">
@@ -24,6 +32,15 @@ const Services = () => {
           humour, or randomised <br /> words which do not look even slightly
           believable.{" "}
         </p>
+        <form onSubmit={handleSearch} className="my-10">
+          <input className="py-3 px-6" type="text" name="search" id="" />
+          <br />
+          <input
+            className="mt-5 btn btn-primary "
+            type="submit"
+            value="Search"
+          />
+        </form>
         <button onClick={() => setAsc(!asc)} className="btn btn-secondary mt-5">
           {asc ? "Price: High To Low" : "Price: Low To High"}
         </button>
